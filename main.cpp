@@ -15,22 +15,29 @@ struct data{
 
 };
 
+data * openAndParse(){
+
+}
+
 void create(){
-     FILE *arq;
-   //  arq fopen();
+    FILE *arq;
+
 }
 
 void read(){
+
 }
 
 void update(){
+
 }
 
 void deleted(){
+
 }
 
-int main()
-{
+int main(){
+
     cout << "" << endl;
     return 0;
 }
