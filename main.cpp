@@ -95,7 +95,7 @@ int main(){
     setlocale(LC_ALL,"portuguese");
     int menu;
     do{
-        printf("\tMenu:\n1 - Inclusao\n2 - Alteracao\n3 - Exclusao\n4 - Pesquisa\n5 - Sair\n\n");
+        printf("\tMenu:\n1 - Inclusão\n2 - Alteração\n3 - Exclusão\n4 - Pesquisa\n5 - Sair\n\n");
         cin>>menu;
         if(menu == 5){
             break;
@@ -106,15 +106,15 @@ int main(){
 
         switch(menu){
             case 1: // Inclusao
-                cout<<"Inclusao\n";
+                cout<<"Inclusão\n";
             break;
 
             case 2: //Alteracao
-                cout<<"Alteracao\n";
+                cout<<"Alteração\n";
             break;
 
             case 3: //Exclusao
-                cout<<"Exclusao\n";
+                cout<<"Exclusão\n";
             break;
 
             case 4: //Pesquisa
