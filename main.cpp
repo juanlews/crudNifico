@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <string>
 #include <stdlib.h>
-#include <iostream>
-#include <string>
 
 using namespace std;
 
@@ -18,70 +16,9 @@ struct data{
 
 };
 
-void opc_create(){
+data * openAndParse(){
 
-    bool repeat = true;
-    data toCreate;
-    toCreate.name = "";
-
-    while( repeat  ){
-
-        printf("Nome do produto: ");
-
-        cin >> toCreate.name;
-        cout <<  toCreate.name;
-
-        if(toCreate.name != ""){
-            cout <<  toCreate.name;
-            repeat = false;
-        }
-    }
-    repeat = true;
-    toCreate.description = "";
-    while(repeat){
-
-        printf("\nDescri��o: ");
-        cin >> toCreate.description;
-        cout <<  toCreate.description;
-        if(toCreate.description != ""){
-            cout <<  toCreate.description;
-            repeat = false;
-        }
-    }
-    //price
-    repeat = true;
-    toCreate.price = 0.0;
-    while(repeat){
-
-        printf("\nDescri��o: ");
-        cin >> toCreate.price;
-        repeat = false;
-    }
-
-    //qty
-    repeat = true;
-    toCreate.quantity = 0;
-    while(repeat){
-
-        printf("\nDescri��o: ");
-        cin >> toCreate.quantity;
-
-        repeat = false;
-
-    }
-    //type
-    repeat = true;
-    toCreate.type = "";
-    while(repeat){
-
-        printf("\nDescri��o: ");
-        cin >> toCreate.type;
-        if(toCreate.type!= ""){
-            repeat = false;
-        }
-    }
 }
-
 
 int indice (){  //Retorna o valor do indice
 
@@ -132,6 +69,11 @@ void print (data x){
     cout<< "Descricao: " << x.description << endl;
     cout<< "Preco: " << x.description << endl;
     cout<< "Origem: " << x.source << endl;
+
+}
+
+void read(){
+
 }
 
 void update(data aux){
@@ -151,12 +93,36 @@ void deleted(){
 
 int main(){
     setlocale(LC_ALL,"portuguese");
-    cout << "" << endl;
-    //opc_create();
-    data aux = create();
-    cout<< "\n\n Impressao: \n";
-    print(aux);
-    update(aux);
+    int menu;
+    do{
+        printf("\tMenu:\n1 - Inclusao\n2 - Alteracao\n3 - Exclusao\n4 - Pesquisa\n5 - Sair\n\n");
+        cin>>menu;
+        if(menu == 5){
+            break;
+        }
+        if(menu < 1 || menu > 5){
+            cout<<"\t\tOpcao invalida, digite novamente...\n";
+        }
+
+        switch(menu){
+            case 1: // Inclusao
+                cout<<"Inclusao\n";
+            break;
+
+            case 2: //Alteracao
+                cout<<"Alteracao\n";
+            break;
+
+            case 3: //Exclusao
+                cout<<"Exclusao\n";
+            break;
+
+            case 4: //Pesquisa
+                cout<<"Pesquisa\n";
+            break;
+        }
+
+    }while(menu != 5);
 
 return 0;
 }
