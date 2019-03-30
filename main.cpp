@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string>
 #include <stdlib.h>
-
+#include <locale.h>
 using namespace std;
 
 struct data{
@@ -91,8 +91,115 @@ void deleted(){
 
 }
 
+
+//=============================================== PROCEDIMENTOS PARA HASH
+
+struct CelulaH{
+    data data;
+    CelulaH *prox;
+};
+
+struct ListaH{
+    CelulaH *inicio, *fim;
+    int tam;
+};
+
+void InicializarH(ListaH *lista){
+
+    lista->inicio = (CelulaH*) malloc(sizeof(CelulaH));
+    lista->inicio->prox = NULL;
+
+    lista->fim = lista->inicio;
+
+    lista->tam = 0;
+}
+
+bool VaziaH(ListaH *lista){
+    return lista->inicio == lista->fim;
+}
+
+void InserirH(ListaH *lista, data x){
+
+
+    CelulaH *temp = (CelulaH*) malloc(sizeof(CelulaH));
+    temp->data = x;
+    temp->prox = NULL;
+
+    lista->fim->prox = temp;
+    lista->fim = temp;
+
+
+    lista->tam++;
+}
+
+void ImprimirH(ListaH *lista){
+    for(CelulaH *temp = lista->inicio->prox; temp!=NULL; temp=temp->prox){
+        printf(" %i -", temp->data.product_id);
+    }
+    printf("\n");
+}
+
+int TamanhoH(ListaH *lista){
+    return lista->tam;
+}
+
+data PesquisarH(ListaH *lista, int X){
+    data falso = {};
+    int contpesq=0;
+    for(CelulaH *temp = lista->inicio->prox; temp!=NULL; temp=temp->prox){
+        contpesq++;
+        if(temp->data.product_id == X)
+            cout<<"Buscas necessárias na lista: "<<contpesq<<endl;
+            return temp->data;
+    }
+    return falso;
+}
+
+int FuncaoHash(int X, int N){
+    return X % N;
+}
+
+void InicializarHash(ListaH *tabela[], int N){
+
+    for(int i=0; i<N; i++){
+       tabela[i] = (ListaH*)malloc(sizeof(ListaH));
+       InicializarH(tabela[i]);
+    }
+}
+
+void InserirHash(ListaH *tabela[], int N, data x){
+
+    int pos = FuncaoHash(x.product_id , N);
+    InserirH(tabela[pos], x);
+
+}
+
+data PesquisarHash(ListaH *tabela[], int N, int X){
+    int contpesq=0;
+    int pos = FuncaoHash(X,N);
+    data consulta = PesquisarH(tabela[pos], X);
+    contpesq++;
+    cout<<"Buscas necessárias na tabela: "<<contpesq<<endl;
+    return consulta;/*
+    if(consulta != {0,0,0,0,0,0,0,0,0,0,0,0})
+        return pos;
+    return -1;
+*/
+}
+
+void ImprimirHash(ListaH *tabela[], int N){
+    int j=0;
+    for(int i=0; i<N; i++){
+        printf("%i|\t", i);
+        ImprimirH(tabela[i]);
+    }
+    printf("\n====================\n");
+}
+
+//===============================================
+
 int main(){
-    setlocale(LC_ALL,"portuguese");
+    setlocale(LC_ALL,"");
     int menu;
     do{
         printf("\tMenu:\n1 - Inclusão\n2 - Alteração\n3 - Exclusão\n4 - Pesquisa\n5 - Sair\n\n");
@@ -107,6 +214,7 @@ int main(){
         switch(menu){
             case 1: // Inclusao
                 cout<<"Inclusão\n";
+                create();
             break;
 
             case 2: //Alteracao
