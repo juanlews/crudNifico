@@ -1,0 +1,2 @@
+0	Abacate Bola	Fruta adocicada	13.540000	30	Nacional
+1	asdf	adsf	13.000000	13	asdf
