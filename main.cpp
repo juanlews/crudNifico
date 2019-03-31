@@ -201,41 +201,37 @@ void ImprimirHash(ListaH *tabela[], int N){
 }
 
 //===============================================
+void Imprimir_pesquisa(data toShow){
+printf("\n\nProduct_id: %i\n Nome: %s\n Descricao: %s\n Preco: %f\n Quantidade: %i\n Origem: %s\n\n",
+                    toShow.product_id, toShow.name, toShow.description, toShow.price,
+                    toShow.quantity, toShow.source);
+
+}
 
 data *openFile(int n){
 
-    data *toLoad = (data*)calloc(n, sizeof(data));
+    data * toLoad = (data *)calloc(n, sizeof(data));
     if(toLoad == NULL){
         cout << "não há memoria suficiente";
     } else {
-        //inicia abertura do arquivo em modo leitura
         FILE *arq = fopen("data.txt", "r+");
         int i = 0;
-        cout << "Serão pesquisados " << n << endl;
-        for(int a = 0; a <= 3; a++){
-            //depois da primeira repetição lê os valores e quarda na Struct
+        //cout << "Serão pesquisados " << n << endl;
+        if(arq){
+            while( !feof(arq) ){
+                fscanf
+                    ( arq, "%i\t%[^\t]\t%[^\t]\t%f\t%i\t%[^\n]\n",
+                     &toLoad[i].product_id, &toLoad[i].name, &toLoad[i].description, &toLoad[i].price,&toLoad[i].quantity, &toLoad[i].source);
 
-            fscanf
-                ( arq, "%i[^\t^\n]\t\n",
-                    &toLoad[i].product_id);
+               //print(toLoad[i]);
 
-            printf("\nProduct_id: %i\nDescription: %s\nPreco: %s\nQuantidade: %s\nOrigem: %s\n\n",
-                toLoad[i].product_id);
-
-
+               //Imprimir_pesquisa(toLoad[i]);
+                i++;
+            }
         }
-
-        fclose(arq);
-
+    fclose(arq);
     }
     return toLoad;
-}
-
-void Imprimir_pesquisa(data toShow){
-printf("Dados da pesquisa:\n: %i\nProduct_id: %i\nDescription: %s\nPreco: %s\nQuantidade: %s\nOrigem: %s\n\n",
-                    toShow.product_id, toShow.description, toShow.price,
-                    toShow.quantity, toShow.source);
-
 }
 
 int main(){
@@ -283,8 +279,15 @@ int main(){
                 cout<<"Pesquisa\n";
                 indice();
                 cin >> idToFind;
+
                 v = openFile(index);
 
+                for(int i=0; i< index; i++){
+                    InserirHash(TabelaHash, fator, v[i]);
+                }
+
+                aux=PesquisarHash(TabelaHash, fator, idToFind);
+                Imprimir_pesquisa(aux);
             break;
         }
 
