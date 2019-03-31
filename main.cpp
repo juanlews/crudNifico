@@ -5,6 +5,8 @@
 #include <locale.h>
 using namespace std;
 
+int index = 0;
+
 struct data{
 
     int product_id;
@@ -34,6 +36,7 @@ int indice (){  //Retorna o valor do indice
             }
         }
     fclose(arq);
+    index = x;
     return x;
 }
 
@@ -74,10 +77,6 @@ void print (data x){
 
 }
 
-void read(){
-
-}
-
 void update(data aux){
 
     //data aux = create();
@@ -98,7 +97,7 @@ void deleted(){
 //=============================================== PROCEDIMENTOS PARA HASH
 
 struct CelulaH{
-    data data;
+    data cellData;
     CelulaH *prox;
 };
 
@@ -125,7 +124,7 @@ void InserirH(ListaH *lista, data x){
 
 
     CelulaH *temp = (CelulaH*) malloc(sizeof(CelulaH));
-    temp->data = x;
+    temp->cellData = x;
     temp->prox = NULL;
 
     lista->fim->prox = temp;
@@ -137,7 +136,7 @@ void InserirH(ListaH *lista, data x){
 
 void ImprimirH(ListaH *lista){
     for(CelulaH *temp = lista->inicio->prox; temp!=NULL; temp=temp->prox){
-        printf(" %i -", temp->data.product_id);
+        printf(" %i -", temp->cellData.product_id);
     }
     printf("\n");
 }
@@ -151,9 +150,9 @@ data PesquisarH(ListaH *lista, int X){
     int contpesq=0;
     for(CelulaH *temp = lista->inicio->prox; temp!=NULL; temp=temp->prox){
         contpesq++;
-        if(temp->data.product_id == X)
+        if(temp->cellData.product_id == X)
             cout<<"Buscas necessárias na lista: "<<contpesq<<endl;
-            return temp->data;
+            return temp->cellData;
     }
     return falso;
 }
@@ -183,7 +182,9 @@ data PesquisarHash(ListaH *tabela[], int N, int X){
     data consulta = PesquisarH(tabela[pos], X);
     contpesq++;
     cout<<"Buscas necessárias na tabela: "<<contpesq<<endl;
-    return consulta;/*
+    return consulta;
+
+    /*
     if(consulta != {0,0,0,0,0,0,0,0,0,0,0,0})
         return pos;
     return -1;
@@ -201,11 +202,55 @@ void ImprimirHash(ListaH *tabela[], int N){
 
 //===============================================
 
+data *openFile(int n){
+
+    data *toLoad = (data*)calloc(n, sizeof(data));
+    if(toLoad == NULL){
+        cout << "não há memoria suficiente";
+    } else {
+        //inicia abertura do arquivo em modo leitura
+        FILE *arq = fopen("data.txt", "r+");
+        int i = 0;
+        cout << "Serão pesquisados " << n << endl;
+        for(int a = 0; a <= 3; a++){
+            //depois da primeira repetição lê os valores e quarda na Struct
+
+            fscanf
+                ( arq, "%i[^\t^\n]\t\n",
+                    &toLoad[i].product_id);
+
+            printf("\nProduct_id: %i\nDescription: %s\nPreco: %s\nQuantidade: %s\nOrigem: %s\n\n",
+                toLoad[i].product_id);
+
+
+        }
+
+        fclose(arq);
+
+    }
+    return toLoad;
+}
+
+void Imprimir_pesquisa(data toShow){
+printf("Dados da pesquisa:\n: %i\nProduct_id: %i\nDescription: %s\nPreco: %s\nQuantidade: %s\nOrigem: %s\n\n",
+                    toShow.product_id, toShow.description, toShow.price,
+                    toShow.quantity, toShow.source);
+
+}
+
 int main(){
     setlocale(LC_ALL,"");
-    int menu;
+    int menu, idToFind = -1;
+    data *v, aux;
+
     //data aux = create();
     //print(aux);
+    int fator=32;    // potencia de 2 abaixo do tamanho total (total= 12800 -> potencia de 2 mais proxima 65536 -> numero primo abaixo 65521), como Sedgewick sugere
+    ListaH **TabelaHash = (ListaH **)calloc(fator,sizeof(ListaH *));
+    InicializarHash(TabelaHash, fator);
+
+    indice();
+    v = openFile(index);
 
     do{
         printf("\tMenu:\n1 - Inclusão\n2 - Alteração\n3 - Exclusão\n4 - Pesquisa\n5 - Sair\n\n");
@@ -236,6 +281,10 @@ int main(){
 
             case 4: //Pesquisa
                 cout<<"Pesquisa\n";
+                indice();
+                cin >> idToFind;
+                v = openFile(index);
+
             break;
         }
 
