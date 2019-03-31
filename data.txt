@@ -2,4 +2,5 @@
 1	Abobora	Suculenta	15,350000	45	Importada
 2	Pera	Verde	43,540001	123	Nacional
 3	davi teste	pra funcionar	1000,000000	1	codigo do davi
+-2	xablau	pra funcionar	1000,000000	1	teste lapide
 4	era pra funcionar	ou n∆o	212,000000	1	desconhecido

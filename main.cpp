@@ -5,7 +5,7 @@
 #include <locale.h>
 using namespace std;
 
-int index = 0;
+int index = 0, validos = 0;
 
 struct data{
 
@@ -40,10 +40,15 @@ int indice (){  //Retorna o valor do indice
     return x;
 }
 
-data create(){
+data create(int id = -1){
 
     data aux;
-    aux.product_id = indice();
+    if(id >= 0){
+        aux.product_id = id;
+    } else{
+        aux.product_id = indice();
+    }
+
     cout<< "\tProduto: " << aux.product_id << endl;
 
     //fflush(stdin);
@@ -89,8 +94,8 @@ void update(data aux){
     fclose(arq);
 }
 
-void deleted(){
-
+void deleteItem(int id){
+ return ;
 }
 
 
@@ -209,7 +214,7 @@ printf("\n\nProduct_id: %i\n Nome: %s\n Descricao: %s\n Preco: %f\n Quantidade: 
 }
 
 data *openFile(int n){
-
+    validos = 0;
     data * toLoad = (data *)calloc(n, sizeof(data));
     if(toLoad == NULL){
         cout << "não há memoria suficiente";
@@ -222,14 +227,61 @@ data *openFile(int n){
                 fscanf
                     ( arq, "%i\t%[^\t]\t%[^\t]\t%f\t%i\t%[^\n]\n",
                      &toLoad[i].product_id, &toLoad[i].name, &toLoad[i].description, &toLoad[i].price,&toLoad[i].quantity, &toLoad[i].source);
-
-               //print(toLoad[i]);
-
-               //Imprimir_pesquisa(toLoad[i]);
-                i++;
+                if(!(toLoad[i].product_id <= -1)){//id negativo serve como lapide
+                    validos++;
+                    i++;
+                }else{
+                    //Imprimir_pesquisa(toLoad[i]);
+                }
             }
         }
-    fclose(arq);
+        fclose(arq);
+    }
+    return toLoad;
+}
+
+data *alteraFile(int n, int id, bool opcExclusao = false){
+    validos = 0;
+    data * toLoad = (data *)calloc(n, sizeof(data));
+    if(toLoad == NULL){
+        cout << "não há memoria suficiente";
+    } else {
+        FILE *arq = fopen("data.txt", "r+");
+        int i = 0;
+        //cout << "Serão pesquisados " << n << endl;
+        if(arq){
+            while( !feof(arq) ){
+                fscanf
+                    ( arq, "%i\t%[^\t]\t%[^\t]\t%f\t%i\t%[^\n]\n",
+                     &toLoad[i].product_id, &toLoad[i].name, &toLoad[i].description, &toLoad[i].price,&toLoad[i].quantity, &toLoad[i].source);
+                if(!(toLoad[i].product_id <= -1)){//id negativo serve como lapide
+                        if(toLoad[i].product_id == id){
+                            //anda no arquivo
+                            cout << "Produto pra ser alterado:\n";
+                            Imprimir_pesquisa(toLoad[i]);
+                            toLoad[i] = create(id);
+                            toLoad[i].product_id = id;
+                            if(opcExclusao){
+                                toLoad[i].product_id = -2;
+                            }
+                        }
+                    validos++;
+                    i++;
+                }else{
+                    i++;
+                    //Imprimir_pesquisa(toLoad[i]);
+                }
+            }
+        }
+        fclose(arq);
+        FILE *arqNovo = fopen("dataNovo.txt", "w+");
+        int a = 0;
+        while(a < i){
+            fprintf(arqNovo, "%i\t%s\t%s\t%f\t%i\t%s\n",
+                    toLoad[a].product_id, toLoad[a].name, toLoad[a].description, toLoad[a].price, toLoad[a].quantity, toLoad[a].source);
+            a++;
+        }
+        fclose(arqNovo);
     }
     return toLoad;
 }
@@ -269,6 +321,9 @@ int main(){
 
             case 2: //Alteracao
                 cout<<"Alteração\n";
+                cin >> idToFind;
+                fflush(stdin);
+                alteraFile(index, idToFind);
             break;
 
             case 3: //Exclusao
@@ -282,7 +337,7 @@ int main(){
 
                 v = openFile(index);
 
-                for(int i=0; i< index; i++){
+                for(int i=0; i< validos; i++){
                     InserirHash(TabelaHash, fator, v[i]);
                 }
 
