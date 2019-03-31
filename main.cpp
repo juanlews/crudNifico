@@ -49,7 +49,7 @@ data create(int id = -1){
         aux.product_id = indice();
     }
 
-    cout<< "\tProduto: " << aux.product_id << endl;
+    cout<< "\tID do Produto: " << aux.product_id << endl;
 
     //fflush(stdin);
     cout<< "Nome do produto: ";
@@ -59,7 +59,7 @@ data create(int id = -1){
     gets(aux.description);
 
     cout<< "Preco do produto: ";
-    cin>> aux.price;
+    scanf("%f", &aux.price);
 
     cout<< "Quantidade do produto: ";
     cin>> aux.quantity;
@@ -67,6 +67,7 @@ data create(int id = -1){
     cin.ignore();
     cout<< "Origem do produto: ";
     gets(aux.source);
+    cout << endl;
 
 return aux;
 
@@ -156,7 +157,7 @@ data PesquisarH(ListaH *lista, int X){
     for(CelulaH *temp = lista->inicio->prox; temp!=NULL; temp=temp->prox){
         contpesq++;
         if(temp->cellData.product_id == X)
-            cout<<"Buscas necessárias na lista: "<<contpesq<<endl;
+            //cout<<"Buscas necessárias na lista: "<<contpesq<<endl;
             return temp->cellData;
     }
     return falso;
@@ -186,7 +187,7 @@ data PesquisarHash(ListaH *tabela[], int N, int X){
     int pos = FuncaoHash(X,N);
     data consulta = PesquisarH(tabela[pos], X);
     contpesq++;
-    cout<<"Buscas necessárias na tabela: "<<contpesq<<endl;
+    //cout<<"Buscas necessárias na tabela: "<<contpesq<<endl;
     return consulta;
 
     /*
@@ -242,6 +243,7 @@ data *openFile(int n){
 
 data *alteraFile(int n, int id, bool opcExclusao = false){
     validos = 0;
+    bool finded = false;
     data * toLoad = (data *)calloc(n, sizeof(data));
     if(toLoad == NULL){
         cout << "não há memoria suficiente";
@@ -257,6 +259,7 @@ data *alteraFile(int n, int id, bool opcExclusao = false){
                 if(!(toLoad[i].product_id <= -1)){//id negativo serve como lapide
                         if(toLoad[i].product_id == id){
                             //anda no arquivo
+                            finded = true;
                             cout << "Produto pra ser alterado:\n";
                             Imprimir_pesquisa(toLoad[i]);
                             if(!opcExclusao){
@@ -276,7 +279,7 @@ data *alteraFile(int n, int id, bool opcExclusao = false){
             }
         }
         fclose(arq);
-        FILE *arqNovo = fopen("dataNovo.txt", "w+");
+        FILE *arqNovo = fopen("data.txt", "w+");
         int a = 0;
         while(a < i){
             fprintf(arqNovo, "%i\t%s\t%s\t%f\t%i\t%s\n",
@@ -285,11 +288,20 @@ data *alteraFile(int n, int id, bool opcExclusao = false){
         }
         fclose(arqNovo);
     }
+
+    if(!finded){
+        cout<<"Produto não encontrado.\n\n";
+    }
     return toLoad;
 }
 
 int main(){
-    setlocale(LC_ALL,"");
+    setlocale(LC_ALL, "");
+    /*
+    if(setlocale(LC_ALL, "Portuguese") == NULL) {
+        printf("error while setlocale()\n");
+    }
+    */
     int menu, idToFind = -1;
     data *v, aux;
 
@@ -303,8 +315,9 @@ int main(){
     v = openFile(index);
 
     do{
-        printf("\tMenu:\n1 - Inclusão\n2 - Alteração\n3 - Exclusão\n4 - Pesquisa\n5 - Sair\n\n");
+        printf("\tMenu:\n1 - Inclusão\n2 - Alteração\n3 - Exclusão\n4 - Pesquisa\n5 - Sair\n-->Entrada: ");
         cin>>menu;
+        cout << endl;
         fflush(stdin);
         if(menu == 5){
             break;
@@ -313,41 +326,54 @@ int main(){
             cout<<"\t\tOpcao invalida, digite novamente...\n";
         }
 
+        v = 0;
+        indice();
+        v = openFile(index);
+        InicializarHash(TabelaHash, fator);
+        for(int i=0; i< validos; i++){
+            InserirHash(TabelaHash, fator, v[i]);
+        }
+
         switch(menu){
             case 1: // Inclusao
             {
                 //cout<<"Inclusão\n";
                 update(create());
+                openFile(index);
             }
             break;
 
             case 2: //Alteracao
-                cout<<"Alteração\n";
+
+                //cout<<"Alteração no ID: ";
+                printf("Alteração no ID: ");
                 cin >> idToFind;
                 fflush(stdin);
                 alteraFile(index, idToFind);
+
             break;
 
             case 3: //Exclusao
-                cout<<"Exclusão\n";
+
+                cout<<"Exclusãono ID: ";
                 cin >> idToFind;
                 fflush(stdin);
                 alteraFile(index, idToFind, true);
+
+
             break;
 
-            case 4: //Pesquisa
-                cout<<"Pesquisa\n";
-                indice();
+            case 4://Pesquisa
+
+                cout<<"Pesquisa no ID: ";
                 cin >> idToFind;
 
-                v = openFile(index);
-
-                for(int i=0; i< validos; i++){
-                    InserirHash(TabelaHash, fator, v[i]);
-                }
-
                 aux=PesquisarHash(TabelaHash, fator, idToFind);
-                Imprimir_pesquisa(aux);
+                if(aux.product_id = -2){
+                    cout<<"Produto não encontrado.\n\n";
+                } else {
+                    Imprimir_pesquisa(aux);
+                }
             break;
         }
 

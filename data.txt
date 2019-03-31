@@ -1,6 +1,8 @@
 0	Abacate Bola	Fruta adocicada	13,540000	30	Nacional
 1	Abobora	Suculenta	15,350000	45	Importada
-2	Pera	Verde	43,540001	123	Nacional
-3	davi teste	pra funcionar	1000,000000	1	codigo do davi
+-2	Pera	Verde	43,540001	123	Nacional
+3	tatu	tatu	43,540001	12	tatu
 -2	xablau	pra funcionar	1000,000000	1	teste lapide
-4	era pra funcionar	ou n∆o	212,000000	1	desconhecido
+5	era pra funcionar	ou n∆o	212,000000	1	desconhecido
+6	asdf	rt	45,540001	34	tyhj
+7	Beterrba	beterraba	23,559999	56	beterraba
