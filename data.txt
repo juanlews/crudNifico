@@ -1,2 +1,3 @@
 0	Abacate Bola	Fruta adocicada	13.540000	30	Nacional
-1	asdf	adsf	13.000000	13	asdf
+1	Abobora	Suculenta	15,350000	45	Importada
+2	Pera	Verde	43,540001	123	Nacional

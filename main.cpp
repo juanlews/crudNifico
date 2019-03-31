@@ -22,8 +22,9 @@ data * openAndParse(){
 
 int indice (){  //Retorna o valor do indice
 
-    int x = 0, aux;
-    FILE *arq = fopen("data.txt", "r");
+    int x = 0;
+    char aux[100];
+    FILE *arq = fopen("data.txt", "r+");
         if(arq == NULL){
             return x;
         } else {
@@ -42,6 +43,7 @@ data create(){
     aux.product_id = indice();
     cout<< "\tProduto: " << aux.product_id << endl;
 
+    //fflush(stdin);
     cout<< "Nome do produto: ";
     gets(aux.name);
 
@@ -78,6 +80,7 @@ void read(){
 
 void update(data aux){
 
+    //data aux = create();
     FILE *arq = fopen("data.txt", "a+");
     if (arq == NULL) {
         cout<<"\n\tErro na Leitura/Gravacao do arquivo!";
@@ -201,9 +204,13 @@ void ImprimirHash(ListaH *tabela[], int N){
 int main(){
     setlocale(LC_ALL,"");
     int menu;
+    //data aux = create();
+    //print(aux);
+
     do{
         printf("\tMenu:\n1 - Inclusão\n2 - Alteração\n3 - Exclusão\n4 - Pesquisa\n5 - Sair\n\n");
         cin>>menu;
+        fflush(stdin);
         if(menu == 5){
             break;
         }
@@ -213,8 +220,10 @@ int main(){
 
         switch(menu){
             case 1: // Inclusao
-                cout<<"Inclusão\n";
-                create();
+            {
+                //cout<<"Inclusão\n";
+                update(create());
+            }
             break;
 
             case 2: //Alteracao

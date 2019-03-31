@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1553963511 source:c:\users\davig\documents\github\crudnifico\main.cpp
+1553991317 source:c:\users\davig\documents\github\crudnifico\main.cpp
 	<iostream>
 	<stdio.h>
 	<string>
 	<stdlib.h>
+	<locale.h>
 
 1553970191 source:c:\users\juanl\documents\github\crudnifico\main.cpp
 	<iostream>
