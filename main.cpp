@@ -259,8 +259,10 @@ data *alteraFile(int n, int id, bool opcExclusao = false){
                             //anda no arquivo
                             cout << "Produto pra ser alterado:\n";
                             Imprimir_pesquisa(toLoad[i]);
-                            toLoad[i] = create(id);
-                            toLoad[i].product_id = id;
+                            if(!opcExclusao){
+                                toLoad[i] = create(id);
+                                toLoad[i].product_id = id;
+                            }
                             if(opcExclusao){
                                 toLoad[i].product_id = -2;
                             }
@@ -328,6 +330,9 @@ int main(){
 
             case 3: //Exclusao
                 cout<<"Exclusão\n";
+                cin >> idToFind;
+                fflush(stdin);
+                alteraFile(index, idToFind, true);
             break;
 
             case 4: //Pesquisa
