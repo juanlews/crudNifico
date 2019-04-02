@@ -208,9 +208,10 @@ void ImprimirHash(ListaH *tabela[], int N){
 
 //===============================================
 void Imprimir_pesquisa(data toShow){
-printf("\n\nProduct_id: %i\n Nome: %s\n Descricao: %s\n Preco: %f\n Quantidade: %i\n Origem: %s\n\n",
-                    toShow.product_id, toShow.name, toShow.description, toShow.price,
-                    toShow.quantity, toShow.source);
+
+        printf("\n\nProduct_id: %i\n Nome: %s\n Descricao: %s\n Preco: %f\n Quantidade: %i\n Origem: %s\n\n",
+                            toShow.product_id, toShow.name, toShow.description, toShow.price,
+                            toShow.quantity, toShow.source);
 
 }
 
@@ -339,7 +340,7 @@ int main(){
             {
                 //cout<<"Inclusão\n";
                 update(create());
-                openFile(index);
+                //openFile(index);
             }
             break;
 
@@ -369,11 +370,15 @@ int main(){
                 cin >> idToFind;
 
                 aux=PesquisarHash(TabelaHash, fator, idToFind);
-                if(aux.product_id = -2){
-                    cout<<"Produto não encontrado.\n\n";
+                //Imprimir_pesquisa(aux);
+                //cout<<endl<<aux.product_id<<endl<<endl;
+
+                if(aux.product_id == 0){
+                    printf("Produto não encontrado.\n");
                 } else {
                     Imprimir_pesquisa(aux);
                 }
+
             break;
         }
 
