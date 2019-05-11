@@ -3,6 +3,7 @@
 #include <string>
 #include <stdlib.h>
 #include <locale.h>
+//#include <ProcedimentosHash.h>
 using namespace std;
 
 int index = 0, validos = 0;
@@ -17,10 +18,6 @@ struct data{
     char source[15];
 
 };
-
-data * openAndParse(){
-
-}
 
 int indice (){  //Retorna o valor do indice
 
@@ -99,7 +96,6 @@ void deleteItem(int id){
  return ;
 }
 
-
 //=============================================== PROCEDIMENTOS PARA HASH
 
 struct CelulaH{
@@ -152,7 +148,8 @@ int TamanhoH(ListaH *lista){
 }
 
 data PesquisarH(ListaH *lista, int X){
-    data falso = {};
+    data falso;
+    falso.product_id = -1;  //Caso nao haja o id de busca, o campo product.id do objeto falso retornara -1, esse reconhecimento é feito no main()
     int contpesq=0;
     for(CelulaH *temp = lista->inicio->prox; temp!=NULL; temp=temp->prox){
         contpesq++;
@@ -189,12 +186,6 @@ data PesquisarHash(ListaH *tabela[], int N, int X){
     contpesq++;
     //cout<<"Buscas necessárias na tabela: "<<contpesq<<endl;
     return consulta;
-
-    /*
-    if(consulta != {0,0,0,0,0,0,0,0,0,0,0,0})
-        return pos;
-    return -1;
-*/
 }
 
 void ImprimirHash(ListaH *tabela[], int N){
@@ -206,12 +197,12 @@ void ImprimirHash(ListaH *tabela[], int N){
     printf("\n====================\n");
 }
 
+
 //===============================================
 void Imprimir_pesquisa(data toShow){
 
-        printf("\n\nProduct_id: %i\n Nome: %s\n Descricao: %s\n Preco: %f\n Quantidade: %i\n Origem: %s\n\n",
-                            toShow.product_id, toShow.name, toShow.description, toShow.price,
-                            toShow.quantity, toShow.source);
+printf("\n\nProduct_id: %i\n Nome: %s\n Descricao: %s\n Preco: %f\n Quantidade: %i\n Origem: %s\n\n",
+        toShow.product_id, toShow.name, toShow.description, toShow.price, toShow.quantity, toShow.source);
 
 }
 
@@ -223,7 +214,6 @@ data *openFile(int n){
     } else {
         FILE *arq = fopen("data.txt", "r+");
         int i = 0;
-        //cout << "Serão pesquisados " << n << endl;
         if(arq){
             while( !feof(arq) ){
                 fscanf
@@ -246,12 +236,12 @@ data *alteraFile(int n, int id, bool opcExclusao = false){
     validos = 0;
     bool finded = false;
     data * toLoad = (data *)calloc(n, sizeof(data));
+
     if(toLoad == NULL){
         cout << "não há memoria suficiente";
     } else {
         FILE *arq = fopen("data.txt", "r+");
         int i = 0;
-        //cout << "Serão pesquisados " << n << endl;
         if(arq){
             while( !feof(arq) ){
                 fscanf
@@ -275,7 +265,6 @@ data *alteraFile(int n, int id, bool opcExclusao = false){
                     i++;
                 }else{
                     i++;
-                    //Imprimir_pesquisa(toLoad[i]);
                 }
             }
         }
@@ -298,16 +287,10 @@ data *alteraFile(int n, int id, bool opcExclusao = false){
 
 int main(){
     setlocale(LC_ALL, "");
-    /*
-    if(setlocale(LC_ALL, "Portuguese") == NULL) {
-        printf("error while setlocale()\n");
-    }
-    */
+
     int menu, idToFind = -1;
     data *v, aux;
 
-    //data aux = create();
-    //print(aux);
     int fator=32;    // potencia de 2 abaixo do tamanho total (total= 12800 -> potencia de 2 mais proxima 65536 -> numero primo abaixo 65521), como Sedgewick sugere
     ListaH **TabelaHash = (ListaH **)calloc(fator,sizeof(ListaH *));
     InicializarHash(TabelaHash, fator);
@@ -338,15 +321,11 @@ int main(){
         switch(menu){
             case 1: // Inclusao
             {
-                //cout<<"Inclusão\n";
                 update(create());
-                //openFile(index);
             }
             break;
 
             case 2: //Alteracao
-
-                //cout<<"Alteração no ID: ";
                 printf("Alteração no ID: ");
                 cin >> idToFind;
                 fflush(stdin);
@@ -355,17 +334,14 @@ int main(){
             break;
 
             case 3: //Exclusao
-
                 cout<<"Exclusãono ID: ";
                 cin >> idToFind;
                 fflush(stdin);
                 alteraFile(index, idToFind, true);
 
-
             break;
 
             case 4://Pesquisa
-
                 cout<<"Pesquisa no ID: ";
                 cin >> idToFind;
 
@@ -373,7 +349,7 @@ int main(){
                 //Imprimir_pesquisa(aux);
                 //cout<<endl<<aux.product_id<<endl<<endl;
 
-                if(aux.product_id == 0){
+                if(aux.product_id == -1){
                     printf("Produto não encontrado.\n");
                 } else {
                     Imprimir_pesquisa(aux);

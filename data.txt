@@ -13,3 +13,4 @@
 12	Côco	Seco	3,500000	10	Nacional
 13	Chuchu	Maduro	0,990000	5	Nacional
 -2	Cebolinha	Verde	0,990000	3	Nacional
+15	beterraba	roxo	13,000000	5	itauna
