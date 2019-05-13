@@ -5,9 +5,10 @@
 #include <locale.h>
 
 using namespace std;
-#include "crudCliente.h";
-
-#include "crudParte2.h"
+//#include "crudProduto.h"
+#include "crudCategoria.h"
+#include "crudCliente.h"
+//#include "crudCompra.h"
 
 int index = 0, validos = 0;
 
