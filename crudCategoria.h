@@ -1,9 +1,7 @@
 #ifndef CRUDCATEGORIA_H_INCLUDED
 #define CRUDCATEGORIA_H_INCLUDED
-//struct categoria;
 
-int indexCategoria = 0;
-int categoriaValidas = 0;
+int indexCategoria = 0, categoriaValidas = 0;
 
 struct categoria {
     int categoria_id;
@@ -62,14 +60,8 @@ void updateCategoria(categoria aux){
 
 void Imprimir_pesquisaCategoria(categoria toShow){
 
-    printf("\n\nProduct_id: %i\n Nome: %s \n\n",toShow.categoria_id, toShow.nomeCategoria);
+    printf("\n\tProduct_id: %i\n Nome: %s \n\n",toShow.categoria_id, toShow.nomeCategoria);
 
-}
-
-void listar_categorias(categoria * toShow){
-    for (int i = 0; i > indexCategoria; i++){
-        printf("%i - %s", toShow[i].categoria_id, toShow[i].nomeCategoria);
-    }
 }
 
 categoria *openFileCategorias(int n){
@@ -89,7 +81,7 @@ categoria *openFileCategorias(int n){
                     categoriaValidas++;
                     i++;
                 }else{
-                    Imprimir_pesquisaCategoria(toLoad[i]);
+                    //Imprimir_pesquisaCategoria(toLoad[i]);
                 }
             }
         }

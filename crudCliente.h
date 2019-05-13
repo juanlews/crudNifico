@@ -1,9 +1,7 @@
 #ifndef CRUDCLIENTE_INCLUDED
 #define CRUDCLIENTE_INCLUDED
-//struct categoria;
 
-int indexCliente = 0;
-int validosCliente = 0;
+int indexCliente = 0, validosCliente = 0;
 
 struct cliente {
     int cliente_id;
@@ -65,7 +63,7 @@ void updateCliente(cliente aux){
 
 void Imprimir_pesquisaCliente(cliente toShow){
 
-printf("\nCliente ID: %i\n Nome Cliente: %s\n Email Cliente: %s\n\n",
+printf("\n\tCliente ID: %i\n Nome Cliente: %s\n Email Cliente: %s\n\n",
         toShow.cliente_id, toShow.nomeCliente, toShow.emailCliente);
 
 }

@@ -1,11 +1,14 @@
 # depslib dependency file v1.0
-1557705950 source:c:\users\davig\documents\github\crudnifico\main.cpp
+1557777898 source:c:\users\davig\documents\github\crudnifico\main.cpp
 	<iostream>
 	<stdio.h>
 	<string>
 	<stdlib.h>
 	<locale.h>
+	"crudProduto.h"
+	"crudCategoria.h"
 	"crudCliente.h"
+	"procedimentosHash.h"
 
 1554056767 source:c:\users\juanl\documents\github\crudnifico\main.cpp
 	<iostream>
@@ -14,5 +17,11 @@
 	<stdlib.h>
 	<locale.h>
 
-1557700524 c:\users\davig\documents\github\crudnifico\crudcliente.h
+1557778137 c:\users\davig\documents\github\crudnifico\crudcliente.h
+
+1557778017 c:\users\davig\documents\github\crudnifico\crudproduto.h
+
+1557778156 c:\users\davig\documents\github\crudnifico\crudcategoria.h
+
+1557777871 c:\users\davig\documents\github\crudnifico\procedimentoshash.h
 

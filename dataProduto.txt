@@ -15,3 +15,4 @@
 -2	Cebolinha	Verde	0,990000	3	Nacional
 -2	beterraba	roxo	13,000000	5	itauna
 16	Abacaxi	citrico	10,000000	23	bahia
+17	Notebook 	Dell Inspiron	2200,000000	15	Polo de Manaus
