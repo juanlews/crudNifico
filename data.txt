@@ -3,7 +3,7 @@
 2	Feijao	preto	5,000000	5	Importado
 3	Batata	Potato	3,500000	3	Nacional
 4	Alface	Crespa	2,100000	4	Importado
-5	Rucula	Azedinha	1,500000	6	Nacional
+5	Brocolis	verde	3,500000	6	Virginopolis
 6	Jiló	Grande	8,000000	2	Importado
 7	Quinoa	Saudavel	15,000000	1	Importado
 8	Mandioca	Escaldada	6,000000	2	Nacional
@@ -14,3 +14,4 @@
 13	Chuchu	Maduro	0,990000	5	Nacional
 -2	Cebolinha	Verde	0,990000	3	Nacional
 -2	beterraba	roxo	13,000000	5	itauna
+16	Abacaxi	citrico	10,000000	23	bahia

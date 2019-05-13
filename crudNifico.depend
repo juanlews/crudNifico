@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1557692930 source:c:\users\davig\documents\github\crudnifico\main.cpp
+1557705950 source:c:\users\davig\documents\github\crudnifico\main.cpp
 	<iostream>
 	<stdio.h>
 	<string>
@@ -14,5 +14,5 @@
 	<stdlib.h>
 	<locale.h>
 
-1557693057 c:\users\davig\documents\github\crudnifico\crudcliente.h
+1557700524 c:\users\davig\documents\github\crudnifico\crudcliente.h
 
