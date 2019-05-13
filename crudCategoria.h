@@ -76,13 +76,15 @@ categoria *openFileCategorias(int n){
     categoriaValidas = 0;
     categoria * toLoad = (categoria *)calloc(n, sizeof(categoria));
     if(toLoad == NULL){
-        cout << "n�o h� memoria suficiente";
+        cout << "não há memoria suficiente";
     } else {
         FILE *arq = fopen("dataCategoria.txt", "r+");
         int i = 0;
         if(arq){
             while( !feof(arq) ){
-                fscanf( arq, "%i\t%[^\n]\n", toLoad[i].categoria_id, toLoad[i].nomeCategoria);
+                fscanf
+                    ( arq, "%i\t%[^\n]\n",
+                        &toLoad[i].categoria_id, &toLoad[i].nomeCategoria);
                 if(!(toLoad[i].categoria_id <= -1)){//id negativo serve como lapide
                     categoriaValidas++;
                     i++;
@@ -97,6 +99,7 @@ categoria *openFileCategorias(int n){
 }
 
 categoria *alteraFileCategorias(int n, int id, bool opcExclusao = false){
+    cout << n << endl;
     categoriaValidas = 0;
     bool finded = false;
     categoria * toLoad = (categoria *)calloc(n, sizeof(categoria));
@@ -108,16 +111,17 @@ categoria *alteraFileCategorias(int n, int id, bool opcExclusao = false){
         int i = 0;
         if(arq){
             while( !feof(arq) ){
-                fscanf( arq, "%i\t%[^\n]\n", toLoad[i].categoria_id, toLoad[i].nomeCategoria);
+                fscanf( arq, "%i\t%[^\n]\n", &toLoad[i].categoria_id, &toLoad[i].nomeCategoria);
                 if(!(toLoad[i].categoria_id <= -1)){//id negativo serve como lapide
                     if(toLoad[i].categoria_id == id){
                         //anda no arquivo
                         finded = true;
-                        cout << "Produto pra ser alterado:\n";
+                        cout << "Categoria pra ser alterado:\n";
                         Imprimir_pesquisaCategoria(toLoad[i]);
                         if(!opcExclusao){
                             toLoad[i] = create_categoria(id);
                             toLoad[i].categoria_id = id;
+                            cout <<  toLoad[i].nomeCategoria << endl;
                         }
                         if(opcExclusao){
                             toLoad[i].categoria_id = -2;
@@ -134,7 +138,7 @@ categoria *alteraFileCategorias(int n, int id, bool opcExclusao = false){
         FILE *arqNovo = fopen("dataCategoria.txt", "w+");
         int a = 0;
         while(a < i){
-            fprintf(arqNovo, "%i\t%s\t%s\t%f\t%i\t%s\n",
+            fprintf(arqNovo, "%i\t%s\t\n",
                         toLoad[a].categoria_id, toLoad[a].nomeCategoria);
                 a++;
             }
@@ -145,6 +149,17 @@ categoria *alteraFileCategorias(int n, int id, bool opcExclusao = false){
             cout<<"Categoria não encontrada.\n\n";
         }
         return toLoad;
+}
+
+categoria PesquisarCategoria(categoria *lista, int X){
+    categoria aux;
+    aux.categoria_id = -1;  //Caso nao haja o id de busca, o campo product.id do objeto falso retornara -1, esse reconhecimento é feito no main()
+    for (int i = 0; i < categoriaValidas; i++){
+        if(lista[i].categoria_id == X){
+            return lista[i];
+        }
+    }
+    return aux; //apenas se nao encontrar
 }
 
 #endif // CELULA_H_INCLUDED
