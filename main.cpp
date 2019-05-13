@@ -190,7 +190,7 @@ void ImprimirHash(ListaH *tabela[], int N){
 
 //===============================================
 void Imprimir_pesquisa(data toShow){
-    
+
 printf("\n\nProduct_id: %i\n Nome: %s\n Descricao: %s\n Preco: %f\n Quantidade: %i\n Origem: %s\n\n",
         toShow.product_id, toShow.name, toShow.description, toShow.price, toShow.quantity, toShow.source);
 
@@ -281,7 +281,7 @@ int main(){
     int menu, idToFind = -1, subMenu;
 
 	data *v, aux;
-	//categoria *categorias, auxCategoria;
+	categoria *categorias, auxCategoria;
 	cliente *clientes, auxCliente;
 	//compra *compras, auxCompra;
 
@@ -310,9 +310,9 @@ int main(){
             InserirHash(TabelaHash, fator, v[i]);
         }
 
-		// categorias = 0;
-		// indiceCategoria();
-		// categorias = openFileCategoria();
+		categorias = 0;
+        indiceCategoria();
+		categorias = openFileCategorias(indexCategoria);
 
 		clientes = 0;
 		indiceCliente();
@@ -339,7 +339,7 @@ int main(){
 					break;
 
             		case 2:	//Categoria
-						//updateCategoria(create_categoria);
+						updateCategoria(create_categoria());
 					break;
 
             		case 3:	//Cliente
@@ -372,10 +372,10 @@ int main(){
             		break;
 
             		case 2:	//Categoria
-						// printf("(Categoria)Alteracao no ID: ");
-						// cin >> idToFind;
-						// fflush(stdin);
-						// alteraFileCategoria(indexCategoria, idToFind);
+						 printf("(Categoria)Alteracao no ID: ");
+						 cin >> idToFind;
+						 fflush(stdin);
+						 alteraFileCategorias(indexCategoria, idToFind);
             		break;
 
             		case 3:	//Cliente
@@ -414,10 +414,10 @@ int main(){
 					break;
 
             		case 2:	//Categoria
-						// printf("(Categoria)Exclusao no ID: ");
-						// cin >> idToFind;
-						// fflush(stdin);
-						// alteraFileCategoria(indexCategoria, idToFind, true);
+						 printf("(Categoria)Exclusao no ID: ");
+						 cin >> idToFind;
+						 fflush(stdin);
+						 alteraFileCategorias(indexCategoria, idToFind, true);
 					break;
 
             		case 3:	//Cliente
@@ -460,14 +460,14 @@ int main(){
             		break;
 
             		case 2:	//Categoria
-						// printf("(Categoria)Pesquisa no ID: ");
-						// cin >> idToFind;
-						// auxCategoria = PesquisarCategoria(categorias, idToFind);
-						// if(aux.categoria_id == -1){
-						// 	printf("Produto não encontrado.\n");
-						// } else {
-						// 	Imprimir_pesquisaCategoria(auxCategoria);
-						// }
+                        printf("(Categoria)Pesquisa no ID: ");
+                        cin >> idToFind;
+                        auxCategoria = PesquisarCategoria(categorias, idToFind);
+						if(auxCategoria.categoria_id == -1){
+                            printf("Produto não encontrado.\n");
+                        } else {
+                            Imprimir_pesquisaCategoria(auxCategoria);
+						}
             		break;
 
             		case 3:	//Cliente
