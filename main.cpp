@@ -7,6 +7,8 @@
 using namespace std;
 #include "crudCliente.h";
 
+#include "crudParte2.h"
+
 int index = 0, validos = 0;
 
 struct data{
@@ -71,16 +73,6 @@ return aux;
 
 }
 
-void print (data x){
-
-    cout<< "ID: " << x.product_id << endl;
-    cout<< "Nome: " << x.name << endl;
-    cout<< "Descricao: " << x.description << endl;
-    cout<< "Preco: " << x.description << endl;
-    cout<< "Origem: " << x.source << endl;
-
-}
-
 void update(data aux){
 
     //data aux = create();
@@ -91,10 +83,6 @@ void update(data aux){
         fprintf(arq, "%i\t%s\t%s\t%f\t%i\t%s\n",aux.product_id, aux.name, aux.description, aux.price, aux.quantity, aux.source);
     }
     fclose(arq);
-}
-
-void deleteItem(int id){
- return ;
 }
 
 //=============================================== PROCEDIMENTOS PARA HASH
@@ -201,7 +189,7 @@ void ImprimirHash(ListaH *tabela[], int N){
 
 //===============================================
 void Imprimir_pesquisa(data toShow){
-
+    
 printf("\n\nProduct_id: %i\n Nome: %s\n Descricao: %s\n Preco: %f\n Quantidade: %i\n Origem: %s\n\n",
         toShow.product_id, toShow.name, toShow.description, toShow.price, toShow.quantity, toShow.source);
 
