@@ -16,6 +16,7 @@ bool pesquisaCategoria (categoria *aux, int id){
     }
     return false;
 }
+
 int indiceCategoria (){  //Retorna o valor do indice
 
     int x = 0;

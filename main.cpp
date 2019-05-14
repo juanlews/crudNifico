@@ -5,11 +5,13 @@
 #include <locale.h>
 
 using namespace std;
-int idTemp = -1;
+
+int idTemp = -1, idCliente = -1;
+
 #include "crudCategoria.h"
 #include "crudProduto.h"
 #include "crudCliente.h"
-//#include "crudCompra.h"
+#include "crudCompra.h"
 #include "procedimentosHash.h"
 
 int main(){
@@ -21,7 +23,7 @@ int main(){
 	produto *produtos, auxProdutos;
 	categoria *categorias, auxCategoria;
 	cliente *clientes, auxCliente;
-	//compra *compras, auxCompra;
+	compra *compras, auxCompra;
 
 	int fator=32;
     ListaH **TabelaHash = (ListaH **)calloc(fator,sizeof(ListaH *));
@@ -56,9 +58,9 @@ int main(){
 		indiceCliente();
 		clientes = openFileCliente(indexCliente);
 
-		// compras = 0;
-		// indiceCompras();
-		// compras = openFileCompras();
+		compras = 0;
+		indiceCompra();
+		compras = openFileCompra(indexCompra);
 
         switch(menu){
             case 1: // Inclusao
@@ -100,7 +102,22 @@ int main(){
 					break;
 
             		case 4:	//Compra
-						//upadateCompras(create_compra);
+						if(indexCliente == 0){    //Verifica se ha algum cliente cadastrado para compra
+                            printf("Antes de comprar um produto, cadastre um cliente!\n");
+                        } else {
+                            idCliente= -1;
+                            cond = 0;
+                            cout<< "Qual o id do cliente para compra: ";
+                            do{
+                                cin>> idCliente;
+                                if (pesquisaCliente(clientes, idCliente)){
+						            updateCompra(create_compra());
+                                    cond = true;
+                                } else {
+                                    cout<< "ID de cliente nao encontrado, tente outro: ";
+                                }
+                            } while (!cond);
+                        }
 					break;
 
 					}
@@ -139,10 +156,10 @@ int main(){
             		break;
 
             		case 4:	//Compra
-						// printf("(Compra)Alteracao no ID: ");
-						// cin >> idToFind;
-						// fflush(stdin);
-						// alteraFileCompra(indexCompra, idToFind);
+						printf("(Compra)Alteracao no ID: ");
+						cin >> idToFind;
+						fflush(stdin);
+						alteraFileCompra(indexCompra, idToFind, clientes);
             		break;
 
 				}
@@ -181,10 +198,10 @@ int main(){
 					break;
 
             		case 4:	//Compras
-						// printf("(Compra)Exclusao no ID: ");
-						// cin >> idToFind;
-						// fflush(stdin);
-						// alteraFileCompra(indexCompra, idToFind, true);
+						printf("(Compra)Exclusao no ID: ");
+						cin >> idToFind;
+						fflush(stdin);
+						alteraFileCompra(indexCompra, idToFind, clientes, true);
 					break;
 
 				}
@@ -236,14 +253,14 @@ int main(){
             		break;
 
             		case 4:	//Compra
-						// printf("(Compra)Pesquisa no ID: ");
-						// cin >> idToFind;
-						// auxCompra = PesquisarCompra(compras, idToFind);
-						// if(aux.compra_id == -1){
-						// 	printf("Produto não encontrado.\n");
-						// } else {
-						// 	Imprimir_pesquisaCompra(auxCompra);
-						// }
+						printf("(Compra)Pesquisa no ID: ");
+						cin >> idToFind;
+						auxCompra = PesquisarCompra(compras, idToFind);
+						if(auxCompra.compra_id == -1){
+							printf("Produto não encontrado.\n");
+						} else {
+							Imprimir_pesquisaCompra(auxCompra);
+						}
             		break;
 
 				}

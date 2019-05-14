@@ -9,6 +9,15 @@ struct cliente {
     char emailCliente[50];
 };
 
+bool pesquisaCliente (cliente *aux, int id){
+    for (int i = 0; i < indexCliente; i++){
+        if (aux[i].cliente_id == id){
+            return true;
+        }
+    }
+    return false;
+}
+
 int indiceCliente (){  //Retorna o valor do indice
 
     int x = 0;
