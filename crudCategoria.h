@@ -8,6 +8,14 @@ struct categoria {
     char nomeCategoria[20];
 };
 
+bool pesquisaCategoria (categoria *aux, int id){
+    for (int i = 0; i < indexCategoria; i++){
+        if (aux[i].categoria_id == id){
+            return true;
+        }
+    }
+    return false;
+}
 int indiceCategoria (){  //Retorna o valor do indice
 
     int x = 0;

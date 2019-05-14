@@ -6,21 +6,11 @@
 
 using namespace std;
 int idTemp = -1;
-#include "crudProduto.h"
 #include "crudCategoria.h"
+#include "crudProduto.h"
 #include "crudCliente.h"
 //#include "crudCompra.h"
 #include "procedimentosHash.h"
-
-
-bool pesquisaCategoria (categoria *aux, int id){
-    for (int i = 0; i < indexCategoria; i++){
-        if (aux[i].categoria_id == id){
-            return true;
-        }
-    }
-    return false;
-}
 
 int main(){
     setlocale(LC_ALL, "");
@@ -131,7 +121,7 @@ int main(){
 						printf("(Produto)Alteracao no ID: ");
 						cin >> idToFind;
 						fflush(stdin);
-						alteraFileProduto(indexProduto, idToFind);
+						alteraFileProduto(indexProduto, idToFind, categorias);
             		break;
 
             		case 2:	//Categoria
@@ -173,7 +163,7 @@ int main(){
 						printf("(Produto)Exclusao no ID: ");
 						cin >> idToFind;
 						fflush(stdin);
-						alteraFileProduto(indexProduto, idToFind, true);
+						alteraFileProduto(indexProduto, idToFind, categorias, true);
 					break;
 
             		case 2:	//Categoria

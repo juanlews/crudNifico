@@ -1,2 +1,2 @@
 0	3	alicate	crimpador	56,599998	15	cuiaba
-1	3	martelo	mjonir	999,989990	1	asgard
+1	2	martelo	mjonir	99,000000	3	asgd

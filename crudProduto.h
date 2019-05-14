@@ -114,11 +114,11 @@ produto *openFileProduto(int n){//
     return toLoad;
 }
 
-produto *alteraFileProduto(int n, int id, bool opcExclusao = false){//
+produto *alteraFileProduto(int n, int id, categoria * categorias, bool opcExclusao = false){//
     validosProduto = 0;
-    bool finded = false;
+    bool finded = false, cond = false;
     produto * toLoad = (produto *)calloc(n, sizeof(produto));
-
+    categoria auxCategoria;
     if(toLoad == NULL){
         cout << "não há memoria suficiente";
     } else {
@@ -134,10 +134,20 @@ produto *alteraFileProduto(int n, int id, bool opcExclusao = false){//
                             //anda no arquivo
                             finded = true;
                             cout << "Produto pra ser alterado:\n";
-                            Imprimir_pesquisaProduto(toLoad[i], "a ser trocado");
+                            auxCategoria = PesquisarCategoria(categorias, toLoad[i].product_categoria);
+                            Imprimir_pesquisaProduto(toLoad[i], auxCategoria.nomeCategoria);
                             if(!opcExclusao){
-                                toLoad[i] = createProduto(id);
-                                toLoad[i].product_id = id;
+                                cout<< "Qual o id da categoria do produto: ";
+                                do{
+                                    cin>> idTemp;
+                                    if (pesquisaCategoria(categorias, idTemp)){
+                                        toLoad[i] = createProduto(id);
+                                        toLoad[i].product_id = id;
+                                        cond = true;
+                                    } else {
+                                        cout<< "ID de categoria nao encontrado, tente outro: ";
+                                    }
+                                } while (!cond);
                             }
                             if(opcExclusao){
                                 toLoad[i].product_id = -2;
