@@ -5,16 +5,28 @@
 #include <locale.h>
 
 using namespace std;
+int idTemp = -1;
 #include "crudProduto.h"
 #include "crudCategoria.h"
 #include "crudCliente.h"
 //#include "crudCompra.h"
 #include "procedimentosHash.h"
 
+
+bool pesquisaCategoria (categoria *aux, int id){
+    for (int i = 0; i < indexCategoria; i++){
+        if (aux[i].categoria_id == id){
+            return true;
+        }
+    }
+    return false;
+}
+
 int main(){
     setlocale(LC_ALL, "");
 
     int menu, idToFind = -1, subMenu;
+    bool cond = 0;
 
 	produto *produtos, auxProdutos;
 	categoria *categorias, auxCategoria;
@@ -71,7 +83,22 @@ int main(){
 
             	switch(subMenu){
             		case 1:	//Produto
-						updateProduto(createProduto());
+                        if(indexCategoria == 0){    //Verifica se ha alguma categoria cadastrada para só assim cadasrtar um produto
+                            printf("Antes de cadastrar um produto, cadastre uma categoria!\n");
+                        } else {
+                            idTemp = -1;
+                            cond = 0;
+                            cout<< "Qual o id da categoria do produto: ";
+                            do{
+                                cin>> idTemp;
+                                if (pesquisaCategoria(categorias, idTemp)){
+						            updateProduto(createProduto());
+                                    cond = true;
+                                } else {
+                                    cout<< "ID de categoria nao encontrado, tente outro: ";
+                                }
+                            } while (!cond);
+                        }
 					break;
 
             		case 2:	//Categoria
@@ -191,7 +218,8 @@ int main(){
 						if(auxProdutos.product_id == -1){
 							printf("Produto não encontrado.\n");
 						} else {
-							Imprimir_pesquisaProduto(auxProdutos);
+                            auxCategoria = PesquisarCategoria(categorias, auxProdutos.product_categoria);
+							Imprimir_pesquisaProduto(auxProdutos, auxCategoria.nomeCategoria);
 						}
             		break;
 

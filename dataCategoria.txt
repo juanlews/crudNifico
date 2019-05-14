@@ -1,2 +1,4 @@
 0	oi		
 -2	eletronico		
+2	frutas
+3	ferramentas
