@@ -12,18 +12,20 @@ int idTemp = -1, idCliente = -1;
 #include "crudProduto.h"
 #include "crudCliente.h"
 #include "crudCompra.h"
+#include "crudCarrinho.h"
 #include "procedimentosHash.h"
 
 int main(){
     setlocale(LC_ALL, "");
 
-    int menu, idToFind = -1, subMenu;
+    int menu, idToFind = -1, subMenu, auxSub;
     bool cond = 0;
 
 	produto *produtos, auxProdutos;
 	categoria *categorias, auxCategoria;
 	cliente *clientes, auxCliente;
 	compra *compras, auxCompra;
+	itemComprado *carrinho, auxCarrinho;
 
 	int fator=32;
     ListaH **TabelaHash = (ListaH **)calloc(fator,sizeof(ListaH *));
@@ -61,6 +63,10 @@ int main(){
 		compras = 0;
 		indiceCompra();
 		compras = openFileCompra(indexCompra);
+
+		carrinho = 0;
+		indiceCarrinho();
+		carrinho = openFileCarrinho(indexCarrinho);
 
         switch(menu){
             case 1: // Inclusao
@@ -112,6 +118,14 @@ int main(){
                                 cin>> idCliente;
                                 if (pesquisaCliente(clientes, idCliente)){
 						            updateCompra(create_compra());
+									cout<<"Qual ID do produto para compra: ";
+									do{
+										cin>> auxSub;
+											if (!pesquisaProduto(produtos, auxSub)){
+												cout<< "ID de produto invalido, tente outro: ";
+											}
+									} while (!pesquisaProduto(produtos, auxSub));
+									updateCarrinho(create_carrinhoInserir(auxSub, indexCompra));
                                     cond = true;
                                 } else {
                                     cout<< "ID de cliente nao encontrado, tente outro: ";
@@ -160,6 +174,9 @@ int main(){
 						cin >> idToFind;
 						fflush(stdin);
 						alteraFileCompra(indexCompra, idToFind, clientes);
+							if(pesquisaCompra(compras, idToFind)){
+								alteraFileCarrinho(indexCarrinho, idToFind, produtos);
+							}
             		break;
 
 				}
@@ -202,6 +219,9 @@ int main(){
 						cin >> idToFind;
 						fflush(stdin);
 						alteraFileCompra(indexCompra, idToFind, clientes, true);
+						if(pesquisaCompra(compras, idToFind)){
+								alteraFileCarrinho(indexCarrinho, idToFind, produtos, true);
+							}
 					break;
 
 				}

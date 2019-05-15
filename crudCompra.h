@@ -7,8 +7,17 @@ struct compra {
     int compra_id;
     int compra_cliente;
     char dataCompra[50];
-    float totalCompra;  //=  insercao de produtos comprados, cria arquivo e retorna total    -->ex: produtoComprado()
+    //float totalCompra;  //=  insercao de produtos comprados, cria arquivo e retorna total    -->ex: produtoComprado()
 };
+
+bool pesquisaCompra (compra *aux, int id){
+    for (int i = 0; i < indexCompra; i++){
+        if (aux[i].compra_id == id){
+            return true;
+        }
+    }
+    return false;
+}
 
 int indiceCompra (){  //Retorna o valor do indice
 
@@ -42,7 +51,7 @@ compra create_compra(int id = -1){
     cout<< "\tID cliente efetuando a compra: "<< idCliente << endl;
     aux.compra_cliente = idCliente;
 
-    aux.totalCompra = 0;//incluiCarrinho(); //adicionar produtos e retorna total
+    //aux.totalCompra = 0;//incluiCarrinho(); //adicionar produtos e retorna total
 
     fflush(stdin);
     cout<< "Data compra: ";
@@ -59,15 +68,15 @@ void updateCompra(compra aux){
     if (arq == NULL) {
         cout<<"\n\tErro na Leitura/Gravacao do arquivo!";
     }else{
-        fprintf(arq, "%i\t%i\t%s\t%f\n",aux.compra_id, aux.compra_cliente, aux.dataCompra, aux.totalCompra);
+        fprintf(arq, "%i\t%i\t%s\n",aux.compra_id, aux.compra_cliente, aux.dataCompra);
     }
     fclose(arq);
 }
 
 void Imprimir_pesquisaCompra(compra toShow){
 
-    printf("\n\tCompra ID: %i\n Cliente ID: %i\n Data compra: %s\n Total compra: %f\n\n",
-            toShow.compra_id, toShow.compra_cliente, toShow.dataCompra, toShow.totalCompra);
+    printf("\n\tCompra ID: %i\n Cliente ID: %i\n Data compra: %s\n\n",
+            toShow.compra_id, toShow.compra_cliente, toShow.dataCompra);
 
 }
 
@@ -82,8 +91,8 @@ compra *openFileCompra(int n){
         if(arq){
             while( !feof(arq) ){
                 fscanf
-                    ( arq, "%i\t%i\t%[^\t]\t%f\n",
-                     &toLoad[i].compra_id, &toLoad[i].compra_cliente, &toLoad[i].dataCompra, &toLoad[i].totalCompra);
+                    ( arq, "%i\t%i\t%[^\n]\n",
+                     &toLoad[i].compra_id, &toLoad[i].compra_cliente, &toLoad[i].dataCompra);
                 if(!(toLoad[i].compra_id <= -1)){//id negativo serve como lapide
                     validosCompra++;
                     i++;
@@ -110,8 +119,8 @@ compra *alteraFileCompra(int n, int id, cliente *clientes, bool opcExclusao = fa
         if(arq){
             while( !feof(arq) ){
                 fscanf
-                    ( arq, "%i\t%i\t%[^\t]\t%f\n",
-                     &toLoad[i].compra_id, &toLoad[i].compra_cliente, &toLoad[i].dataCompra, &toLoad[i].totalCompra);
+                    ( arq, "%i\t%i\t%[^\n]\n",
+                     &toLoad[i].compra_id, &toLoad[i].compra_cliente, &toLoad[i].dataCompra);
                 if(!(toLoad[i].compra_id <= -1)){//id negativo serve como lapide
                         if(toLoad[i].compra_id == id){
                             //anda no arquivo
@@ -146,8 +155,8 @@ compra *alteraFileCompra(int n, int id, cliente *clientes, bool opcExclusao = fa
         FILE *arqNovo = fopen("dataCompra.txt", "w+");
         int a = 0;
         while(a < i){
-            fprintf(arqNovo, "%i\t%i\t%s\t%f\n",
-                    toLoad[a].compra_id, toLoad[a].compra_cliente, toLoad[a].dataCompra, toLoad[a].totalCompra);
+            fprintf(arqNovo, "%i\t%i\t%s\n",
+                    toLoad[a].compra_id, toLoad[a].compra_cliente, toLoad[a].dataCompra);
             a++;
         }
         fclose(arqNovo);

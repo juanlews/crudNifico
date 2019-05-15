@@ -15,6 +15,15 @@ struct produto{//
 
 };
 
+bool pesquisaProduto (produto *aux, int id){
+    for (int i = 0; i < indexProduto; i++){
+        if (aux[i].product_id == id){
+            return true;
+        }
+    }
+    return false;
+}
+
 int indiceProduto (){  //Retorna o valor do indice//
 
     int x = 0;
